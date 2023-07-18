@@ -13,6 +13,7 @@
     "@react-navigation/drawer": "^6.6.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
+    "@rneui/themed": "^4.0.0-rc.7",
     "jail-monkey": "^2.8.0",
     "react": "18.2.0",
     "react-i18next": "^13.0.2",

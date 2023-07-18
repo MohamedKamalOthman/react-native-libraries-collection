@@ -17,6 +17,7 @@ import {
   Button,
   useColorScheme,
   View,
+  Platform,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -29,6 +30,7 @@ import Home from './screens/Home';
 import Language from './screens/Language';
 import './utils/i18n';
 import {useTranslation} from 'react-i18next';
+import Icon from 'react-native-vector-icons/Ionicons';
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {

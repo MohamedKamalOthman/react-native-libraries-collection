@@ -1,15 +1,19 @@
 // create home screen
 
-import {useLayoutEffect} from 'react';
+import React, {useLayoutEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, Text} from 'react-native';
-
+import {Platform} from 'react-native';
+import {View, Text, Image} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const Home = ({navigation}) => {
   const {t, i18n} = useTranslation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: t('Home'),
+      drawerIcon: ({focused, size}) => (
+        <Icon name="rocket" size={30} color="#900" />
+      ),
     });
   });
   return (
