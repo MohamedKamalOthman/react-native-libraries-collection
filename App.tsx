@@ -13,24 +13,17 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  Button,
   useColorScheme,
   View,
-  Platform,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {
-  LanguageDirectionProvider,
-  MyCustomTextComponent,
-  MyDirectionChangerButton,
-} from './Components/language_direction';
+
 import Home from './screens/Home';
 import Language from './screens/Language';
 import './utils/i18n';
 import {useTranslation} from 'react-i18next';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Form from './screens/Form';
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
@@ -44,6 +37,7 @@ function App(): JSX.Element {
       <Drawer.Navigator initialRouteName={t('Home')}>
         <Drawer.Screen name={t('Home')} component={Home} />
         <Drawer.Screen name={t('Language')} component={Language} />
+        <Drawer.Screen name={t('Form')} component={Form} />
       </Drawer.Navigator>
 
       <SafeAreaView style={backgroundStyle}>
