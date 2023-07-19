@@ -198,9 +198,9 @@ export default class Calendar extends React.Component {
               ? {
                   date: day,
                   status: this.getStatus(day, this.selectFrom, this.selectTo),
-                  disabled:
-                    day.getTime() <
-                    new Date(startDate).setDate(startDate.getDate() - 1),
+                  // disabled:
+                  //   day.getTime() <
+                  //   new Date(startDate).setDate(startDate.getDate() - 1),
                 }
               : {date: '', status: 'monthFirstDays'};
           }),
