@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, FlatList, Dimensions} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import Month from './Month';
 import {styles} from './Style';
 import {StaticWeekdays} from './Weekdays';
@@ -9,6 +16,7 @@ export default class Calendar extends React.Component {
   static defaultProps = {
     startDate: new Date(),
     selectFrom: new Date(),
+    setCurrentDate: null,
     selectTo: null,
     monthsCount: 12,
     type: 'gregorian',
@@ -371,20 +379,7 @@ export default class Calendar extends React.Component {
     } = this.props;
     return (
       <View>
-        {(monthNameMode === 'static' || monthNameMode === 'both') && (
-          <Text
-            style={[
-              {
-                textAlign: 'center',
-                paddingTop: 10,
-              },
-              staticMonthBackColor && {backgroundColor: staticMonthBackColor},
-              staticMonthTextColor && {color: staticMonthTextColor},
-            ]}
-            bold>
-            {this.state.currentMonth}
-          </Text>
-        )}
+        {(monthNameMode === 'static' || monthNameMode === 'both') && <></>}
         {(weekdaysNameMode === 'static' || weekdaysNameMode === 'both') && (
           <StaticWeekdays {...this.props} />
         )}
