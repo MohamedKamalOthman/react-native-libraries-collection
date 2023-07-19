@@ -12,7 +12,7 @@ const Home = ({navigation}) => {
     navigation.setOptions({
       title: t('Home'),
       drawerIcon: ({focused, size}) => (
-        <Icon name="rocket" size={30} color="#900" />
+        <Icon name="home" size={30} color="#000" />
       ),
     });
   });

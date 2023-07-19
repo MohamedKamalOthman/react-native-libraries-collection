@@ -8,29 +8,13 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-import Home from './screens/Home';
-import Language from './screens/Language';
 import './utils/i18n';
 import {useTranslation} from 'react-i18next';
-import Form from './screens/Form';
+import {Home, Language, Form, Tabs} from './screens';
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
   const {t} = useTranslation();
   return (
     <NavigationContainer>
@@ -38,44 +22,9 @@ function App(): JSX.Element {
         <Drawer.Screen name={t('Home')} component={Home} />
         <Drawer.Screen name={t('Language')} component={Language} />
         <Drawer.Screen name={t('Form')} component={Form} />
+        <Drawer.Screen name={t('Tabs')} component={Tabs} />
       </Drawer.Navigator>
-
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <View style={styles.sectionContainer}></View>
-        </ScrollView>
-      </SafeAreaView>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginTop: 12,
-    textAlign: 'center',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-});
-
 export default App;
