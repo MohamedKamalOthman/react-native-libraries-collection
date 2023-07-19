@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Calendar from '../Components/Calendar';
 import moment from 'moment-hijri';
 import {useState} from 'react';
@@ -27,6 +27,7 @@ const TwoButtons = ({change, setCurrentDate, date}) => {
 };
 const DatePicker = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [isVisible, setIsVisible] = useState(true);
   const [calendar, setCalendar] = useState(
     <Calendar
       key={currentDate.toDateString()}
@@ -38,6 +39,7 @@ const DatePicker = () => {
       setCurrentDate={setCurrentDate}
       onSelectionChange={(date: {to: any}) => {
         console.log(moment(date.to).format('iYYYY/iM/iD'));
+        setIsVisible(false);
       }}
     />,
   );
@@ -51,18 +53,21 @@ const DatePicker = () => {
         startDate={currentDate}
         onSelectionChange={(date: {to: any}) => {
           console.log(moment(date.to).format('iYYYY/iM/iD'));
+          setIsVisible(false);
         }}
       />,
     );
   };
   return (
-    <View>
-      <TwoButtons
-        change={change}
-        setCurrentDate={setCurrentDate}
-        date={currentDate}
-      />
-      {calendar}
+    <View style={styles.listViewContainer}>
+      <Modal visible={isVisible} animationType="slide">
+        <TwoButtons
+          change={change}
+          setCurrentDate={setCurrentDate}
+          date={currentDate}
+        />
+        {calendar}
+      </Modal>
     </View>
   );
 };
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
 
   listViewContainer: {
     //flex:1,
-    height: '100%',
+    width: '50%',
     backgroundColor: 'white',
     alignSelf: 'center',
   },

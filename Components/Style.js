@@ -22,12 +22,12 @@ export const styles = StyleSheet.create({
 
   listViewContainer: {
     //flex:1,
-    height: '100%',
+    // height: '100%',
     backgroundColor: 'white',
     alignSelf: 'center',
   },
   weekDayNames: {
-    width: '100%',
+    // width: '100%',
     borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'center',
