@@ -1,13 +1,8 @@
 import JailMonkey from 'jail-monkey';
 import {useColorScheme, View, Text, StyleSheet} from 'react-native';
-import {styles} from '../components/Style';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 function RootedScreen(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   // if device is rooted return view with rooted else not rooted
   return JailMonkey.isJailBroken() ? (

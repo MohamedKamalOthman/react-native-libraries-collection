@@ -11,7 +11,15 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import './utils/i18n';
 import {useTranslation} from 'react-i18next';
-import {Home, Language, Form, Tabs, DatePicker, ContactsScreen} from './screens';
+import {
+  Home,
+  Language,
+  Form,
+  Tabs,
+  DatePicker,
+  ContactsScreen,
+  RootedScreen,
+} from './screens';
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
@@ -25,6 +33,7 @@ function App(): JSX.Element {
         <Drawer.Screen name={t('Tabs')} component={Tabs} />
         <Drawer.Screen name={t('DatePicker')} component={DatePicker} />
         <Drawer.Screen name={t('Contacts')} component={ContactsScreen} />
+        <Drawer.Screen name={t('RootChecker')} component={RootedScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
