@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, TextInput, View, Button, Text} from 'react-native';
 
 const Form = () => {
@@ -8,6 +8,18 @@ const Form = () => {
   const [passwordError, setPasswordError] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
+
+  useEffect(() => {
+    validateEmail();
+  }, [email]);
+
+  useEffect(() => {
+    validatePassword();
+  }, [password]);
+
+  useEffect(() => {
+    validatePhoneNumber();
+  }, [phoneNumber]);
 
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -76,7 +88,6 @@ const Form = () => {
       <TextInput
         style={styles.input}
         onChangeText={setEmail}
-        onBlur={validateEmail}
         value={email}
         placeholder="Email"
         keyboardType="email-address"
@@ -85,7 +96,6 @@ const Form = () => {
       <TextInput
         style={styles.input}
         onChangeText={setPassword}
-        onBlur={validatePassword}
         value={password}
         placeholder="Password"
         secureTextEntry
@@ -96,7 +106,6 @@ const Form = () => {
       <TextInput
         style={styles.input}
         onChangeText={setPhoneNumber}
-        onBlur={validatePhoneNumber}
         value={phoneNumber}
         placeholder="Phone number"
         keyboardType="phone-pad"

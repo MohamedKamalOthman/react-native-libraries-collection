@@ -9,7 +9,7 @@ import {
 import {
   MyCustomTextComponent,
   MyDirectionChangerButton,
-} from '../Components/language_direction';
+} from '../components/language_direction';
 import {useTranslation} from 'react-i18next';
 import RNRestart from 'react-native-restart';
 import {useLayoutEffect} from 'react';

@@ -1,5 +1,5 @@
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Calendar from '../Components/Calendar';
+import Calendar from '../components/Calendar';
 import moment from 'moment-hijri';
 import {useEffect, useState} from 'react';
 
