@@ -1,9 +1,10 @@
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Calendar from '../Components/Calendar';
 import moment from 'moment-hijri';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-const TwoButtons = ({change, setCurrentDate, date}) => {
+// Two buttons to change the month of the calendar
+const TwoButtons = ({change, setCurrentDate, date}: any) => {
   const increaseMonth = () => {
     setCurrentDate(new Date(date.setMonth(date.getMonth() + 1)));
     console.log(date);
@@ -25,42 +26,78 @@ const TwoButtons = ({change, setCurrentDate, date}) => {
     </View>
   );
 };
-const DatePicker = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [isVisible, setIsVisible] = useState(true);
-  const [calendar, setCalendar] = useState(
-    <Calendar
-      key={currentDate.toDateString()}
-      moment={moment}
-      type={'hijri'}
-      monthsCount={1}
-      fromDate={moment()}
-      startDate={currentDate}
-      setCurrentDate={setCurrentDate}
-      onSelectionChange={(date: {to: any}) => {
-        console.log(moment(date.to).format('iYYYY/iM/iD'));
-        setIsVisible(false);
-      }}
-    />,
+// Two buttons to change the type of the calendar
+const TypeButtons = ({onPress, setType, type}: any) => {
+  const hijri = () => {
+    setType('hijri');
+    onPress();
+  };
+  const gregorian = () => {
+    setType('gregorian');
+    onPress();
+  };
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.button} onPress={hijri}>
+        <Text style={styles.buttonText}>Hijri</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={gregorian}>
+        <Text style={styles.buttonText}>Gregorian</Text>
+      </TouchableOpacity>
+    </View>
   );
+};
+const DatePicker = () => {
+  // States
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [isVisible, setIsVisible] = useState(false);
+  const [type, setType] = useState('gregorian');
+  const [show, setShow] = useState(false);
+  const [calendar, setCalendar] = useState(<></>);
+
+  // Change the calendar when the type state or date is changed
   const change = () => {
     setCalendar(
       <Calendar
-        key={currentDate.toDateString()}
+        key={currentDate.toDateString() + type}
         moment={moment}
-        type={'hijri'}
+        type={type}
         monthsCount={1}
         startDate={currentDate}
         onSelectionChange={(date: {to: any}) => {
-          console.log(moment(date.to).format('iYYYY/iM/iD'));
+          if (type === 'hijri') {
+            console.log(moment(date.to).format('iYYYY/iM/iD'));
+          } else {
+            console.log(moment(date.to).format('YYYY/M/D'));
+          }
           setIsVisible(false);
         }}
       />,
     );
   };
+
+  // Change the calendar when the type state is changed
+  useEffect(() => {
+    change();
+  }, [type]);
+
+  // Open the Modal when the isVisible state is true
+  useEffect(() => {
+    setShow(isVisible);
+  }, [isVisible]);
+
+  // Return the two buttons and the calendar
   return (
     <View style={styles.listViewContainer}>
-      <Modal visible={isVisible} animationType="slide">
+      {/* Two button centered one to open a hijri modal and one to open a gregorian modal */}
+      <TypeButtons
+        onPress={() => {
+          setIsVisible(true);
+        }}
+        setType={setType}
+        type={type}
+      />
+      <Modal visible={show} animationType="slide">
         <TwoButtons
           change={change}
           setCurrentDate={setCurrentDate}
@@ -74,6 +111,7 @@ const DatePicker = () => {
 
 export default DatePicker;
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
