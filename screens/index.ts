@@ -5,5 +5,15 @@ import Tabs from './Tabs';
 import DatePicker from './DatePicker';
 import ContactsScreen from './Contacts';
 import RootedScreen from './RootChecker';
+import FileUploader from './FileUploader';
 
-export {Form, Home, Language, Tabs, DatePicker, ContactsScreen, RootedScreen};
+export {
+  Form,
+  Home,
+  FileUploader,
+  Language,
+  Tabs,
+  DatePicker,
+  ContactsScreen,
+  RootedScreen,
+};

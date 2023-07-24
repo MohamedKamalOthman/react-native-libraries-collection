@@ -11,9 +11,8 @@ import {
   useColorScheme,
   Text,
 } from 'react-native';
-import {Header} from 'react-navigation-stack';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-function Section({children, title}: SectionProps): JSX.Element {
+function Section({children, title}: any): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -43,42 +42,47 @@ function FileUploader(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  const [files, setFiles] = useState([]);
-  const getFileContent = async (
-    uri_: string | null,
-    name_: string | null,
-    type_: string | null,
-  ) => {
-    // upload file to server https://v2.convertapi.com/upload  with axios
-    const formData = new FormData();
-    formData.append('file', {
-      uri: uri_,
-      name: name_,
-      type: type_,
-    });
-    console.log('Uploading file');
-    const response = await axios.post(
-      'https://v2.convertapi.com/upload',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+  const [uploadedFiles, setUploadedFiles]: [any, any] = useState([]);
+  const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
+
+  const uploadFiles = async () => {
+    // for each file in filesToUpload
+    // get file content
+    console.log(filesToUpload);
+    filesToUpload.forEach(async (element: any) => {
+      // upload file to server https://v2.convertapi.com/upload  with axios
+      const formData = new FormData();
+      formData.append('file', {
+        uri: element.uri,
+        name: element.name,
+        type: element.type,
+      });
+      console.log(`Uploading file ${element.name}`);
+      const response = await axios.post(
+        'https://v2.convertapi.com/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      },
-    );
-    console.log(
-      `Upload Finished Access the file at https://v2.convertapi.com/d/${response.data.FileId}`,
-    );
+      );
+      console.log(
+        `Upload Finished Access the file at https://v2.convertapi.com/d/${response.data.FileId}`,
+      );
+      // add file to uploadedFiles
+      setUploadedFiles([...uploadedFiles, response.data]);
+    });
   };
-  function readFile2() {
+  function readFiles() {
     console.log('Reading file');
     DocumentPicker.pick({
       type: [DocumentPicker.types.allFiles],
     }).then(res => {
       // log file content
-      var content = res[0].uri;
-      // get data from file
-      getFileContent(content, res[0].name, res[0].type);
+      console.log(res);
+      // add file to filesToUpload
+      setFilesToUpload([...filesToUpload, ...res]);
     });
   }
 
@@ -98,9 +102,15 @@ function FileUploader(): JSX.Element {
           <Section title="File Opener">
             <View style={styles.sectionContainer}>
               <Button
-                title="Upload File"
+                title="Select Files"
                 onPress={() => {
-                  readFile2();
+                  readFiles();
+                }}
+              />
+              <Button
+                title="Upload Files"
+                onPress={() => {
+                  uploadFiles();
                 }}
               />
             </View>

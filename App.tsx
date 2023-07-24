@@ -19,6 +19,7 @@ import {
   DatePicker,
   ContactsScreen,
   RootedScreen,
+  FileUploader,
 } from './screens';
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +35,7 @@ function App(): JSX.Element {
         <Drawer.Screen name={t('DatePicker')} component={DatePicker} />
         <Drawer.Screen name={t('Contacts')} component={ContactsScreen} />
         <Drawer.Screen name={t('RootChecker')} component={RootedScreen} />
+        <Drawer.Screen name={t('File Uploader')} component={FileUploader} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
