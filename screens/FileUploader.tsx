@@ -20,12 +20,11 @@ import * as Progress from 'react-native-progress';
 
 const Tab = createBottomTabNavigator();
 
-function UploadScreen({navigation}: any) {
+function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  const [uploadedFiles, setUploadedFiles]: [any, any] = useState([]);
   const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
   const [filesToUploadProgress, setFilesToUploadProgress]: [any, any] =
     useState([]);
@@ -65,7 +64,7 @@ function UploadScreen({navigation}: any) {
         currentFilesToUploadProgress[index] = 2;
         return currentFilesToUploadProgress;
       });
-      setUploadedFiles([...uploadedFiles, response.data.FileId]);
+      setUploadedFiles([...uploadedFiles, element]);
     });
   };
 
@@ -79,7 +78,6 @@ function UploadScreen({navigation}: any) {
       console.log(res);
       // add file to filesToUpload
       res.forEach(element => {
-        res.stat = 0;
         setFilesToUploadProgress((currentFilesToUploadProgress: any) => {
           currentFilesToUploadProgress.push(0);
           return currentFilesToUploadProgress;
@@ -168,15 +166,44 @@ function UploadScreen({navigation}: any) {
   );
 }
 
-function UploadedScreen({navigation}: any) {
+function UploadedScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const renderItem = ({item, index}: {item: any; index: number}) => {
+    return (
+      <Card>
+        <View key={index} style={styles.listItem}>
+          <Text style={{flex: 1}}>{item.name}</Text>
+          <Text>{formatBytes(item.size)}</Text>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => {
+              // removeFile(index);
+            }}>
+            <FontAwesomeIcon name="remove" size={15} color={'white'} />
+          </TouchableOpacity>
+        </View>
+      </Card>
+    );
+  };
+
   return (
-    <View>
-      <Text>Uploaded Files</Text>
-    </View>
+    <SafeAreaView>
+      <View
+        style={{
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        }}>
+        <View>
+          <FlatList
+            data={uploadedFiles}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -185,11 +212,18 @@ function FileUploader(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const [uploadedFiles, setUploadedFiles]: [any, any] = useState([]);
+
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Upload Files"
-        component={UploadScreen}
+        children={() => (
+          <UploadScreen
+            uploadedFiles={uploadedFiles}
+            setUploadedFiles={setUploadedFiles}
+          />
+        )}
         options={{
           tabBarIcon: ({color, size}) => (
             <FontAwesomeIcon name="upload" color={color} size={size} />
@@ -198,7 +232,12 @@ function FileUploader(): JSX.Element {
       />
       <Tab.Screen
         name="View Uploaded Files"
-        component={UploadedScreen}
+        children={() => (
+          <UploadedScreen
+            uploadedFiles={uploadedFiles}
+            setUploadedFiles={setUploadedFiles}
+          />
+        )}
         options={{
           tabBarIcon: ({color, size}) => (
             <FontAwesomeIcon name="file" color={color} size={size} />
