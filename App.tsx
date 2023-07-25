@@ -9,7 +9,7 @@ import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 
-import './utils/i18n';
+import './src/utils/i18n';
 import {useTranslation} from 'react-i18next';
 import {
   Home,
@@ -20,7 +20,7 @@ import {
   ContactsScreen,
   RootedScreen,
   FileUploader,
-} from './screens';
+} from './src/screens';
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
