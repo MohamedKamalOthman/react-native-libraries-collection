@@ -116,9 +116,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     const extension = item.name.split('.').pop();
     const icon = getFileIcon(extension);
     return (
-      <Card
-        key={`${index}-${uploading}-${filesToUpload[index].progress}`}
-        containerStyle={{marginBottom: 20}}>
+      <Card key={`${index}-${uploading}`} containerStyle={{marginBottom: 20}}>
         <View style={styles.listItem}>
           <FontAwesomeIcon name={icon} size={25} color={Colors.black} />
           <Text style={{flex: 1, padding: 10}}>{item.name}</Text>
@@ -133,7 +131,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
         </View>
         <Progress.Bar
           progress={filesToUpload[index].progress}
-          // indeterminate={filesToUpload[index].progress === 0}
+          indeterminate={false}
           width={null}
           height={6}
         />
