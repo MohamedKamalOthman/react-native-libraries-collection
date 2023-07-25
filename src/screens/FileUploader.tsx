@@ -26,8 +26,6 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
   const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
-  const [filesToUploadProgress, setFilesToUploadProgress]: [any, any] =
-    useState([]);
   const [uploading, setUploading] = useState(false);
 
   const uploadFiles = async () => {
@@ -81,13 +79,6 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
       // log file content
       console.log(res);
       // add file to filesToUpload
-      res.forEach(element => {
-        setFilesToUploadProgress((currentFilesToUploadProgress: any) => {
-          currentFilesToUploadProgress.push(0);
-          return currentFilesToUploadProgress;
-        });
-      });
-      console.log(filesToUploadProgress);
       setFilesToUpload([...filesToUpload, ...res]);
     });
   }
@@ -98,15 +89,11 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     newFiles.splice(index, 1);
     setFilesToUpload(newFiles);
     // remove file from filesToUploadProgress
-    setFilesToUploadProgress((current: []) => {
-      current.splice(index, 1);
-      return current;
-    });
   }
 
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
-      <Card key={`${index}-${item.progress}`}>
+      <Card key={`${index}-${uploading}`}>
         <View style={styles.listItem}>
           <Text style={{flex: 1}}>{item.name}</Text>
           <Text>{formatBytes(item.size)}</Text>
