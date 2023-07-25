@@ -32,6 +32,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [flatListHeight, setFlatListHeight] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   const uploadFiles = async () => {
     // for each file in filesToUpload
@@ -68,6 +69,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
                 curr[index].progress = progress_;
                 return curr;
               });
+              setProgress(progress_);
             },
           },
         );
@@ -80,7 +82,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
           curr[
             index
           ].url = `https://v2.convertapi.com/d/${response.data.FileId}`;
-          curr[index].progress = 100;
+          curr[index].progress = 1;
           return curr;
         });
         setUploadedFiles((curr: [any]) => [...curr, element]);
@@ -114,7 +116,9 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     const extension = item.name.split('.').pop();
     const icon = getFileIcon(extension);
     return (
-      <Card key={`${index}-${uploading}`} containerStyle={{marginBottom: 20}}>
+      <Card
+        key={`${index}-${uploading}-${filesToUpload[index].progress}`}
+        containerStyle={{marginBottom: 20}}>
         <View style={styles.listItem}>
           <FontAwesomeIcon name={icon} size={25} color={Colors.black} />
           <Text style={{flex: 1, padding: 10}}>{item.name}</Text>
