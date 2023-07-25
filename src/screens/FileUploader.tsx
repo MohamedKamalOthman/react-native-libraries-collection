@@ -28,17 +28,21 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
   const [filesToUploadProgress, setFilesToUploadProgress]: [any, any] =
     useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const uploadFiles = async () => {
     // for each file in filesToUpload
     // get file content
 
-    filesToUpload.forEach(async (element: any, index: number) => {
+    for (let index = 0; index < filesToUpload.length; index++) {
+      const element = filesToUpload[index];
       // upload file to server https://v2.convertapi.com/upload  with axios
-      setFilesToUploadProgress((currentFilesToUploadProgress: any) => {
-        currentFilesToUploadProgress[index] = 1;
-        return currentFilesToUploadProgress;
+      setFilesToUpload((curr: [any]) => {
+        curr[index].progress = 0;
+        return curr;
       });
+      setUploading(true);
+      console.log(`Uploading file progress ${element.progress}`);
       const formData = new FormData();
       formData.append('file', {
         uri: element.uri,
@@ -55,17 +59,18 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
           },
         },
       );
+      setUploading(false);
 
       console.log(
         `Upload Finished Access the file at https://v2.convertapi.com/d/${response.data.FileId}`,
       );
-      // add file to uploadedFiles
-      setFilesToUploadProgress((currentFilesToUploadProgress: any) => {
-        currentFilesToUploadProgress[index] = 2;
-        return currentFilesToUploadProgress;
+      setFilesToUpload((curr: [any]) => {
+        curr[index].url = `https://v2.convertapi.com/d/${response.data.FileId}`;
+        curr[index].progress = 100;
+        return curr;
       });
       setUploadedFiles([...uploadedFiles, element]);
-    });
+    }
   };
 
   function readFiles() {
@@ -102,8 +107,8 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
 
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
-      <Card>
-        <View key={index} style={styles.listItem}>
+      <Card key={`${index}-${item.progress}`}>
+        <View style={styles.listItem}>
           <Text style={{flex: 1}}>{item.name}</Text>
           <Text>{formatBytes(item.size)}</Text>
           <TouchableOpacity
@@ -114,25 +119,19 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
             <FontAwesomeIcon name="remove" size={15} color={'white'} />
           </TouchableOpacity>
         </View>
-        <View>
-          {(filesToUploadProgress[index] === 2 ||
-            filesToUploadProgress[index] === 1) && (
-            <View style={{padding: 10}}>
-              <Progress.Bar
-                progress={1}
-                indeterminate={filesToUploadProgress[index] === 1}
-                width={null}
-                height={6}
-              />
-            </View>
-          )}
-        </View>
+
+        <Progress.Bar
+          progress={item.progress}
+          indeterminate={uploading && item.progress === 0}
+          width={null}
+          height={6}
+        />
       </Card>
     );
   };
 
   useEffect(() => {
-    console.log(filesToUploadProgress);
+    console.log(filesToUpload.progress, 'Progress');
   });
   return (
     <SafeAreaView>
