@@ -27,12 +27,14 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   };
   const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [flatListHeight, setFlatListHeight] = useState(0);
 
   const uploadFiles = async () => {
     // for each file in filesToUpload
     // get file content
 
-    filesToUpload.forEach(async (element: any, index: number) => {
+    for (let index = 0; index < filesToUpload.length; index++) {
+      const element = filesToUpload[index];
       // upload file to server https://v2.convertapi.com/upload  with axios
       setFilesToUpload((curr: [any]) => {
         curr[index].progress = 0;
@@ -47,27 +49,34 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
         type: element.type,
       });
       console.log(`Uploading file ${element.name}`);
-      const response = await axios.post(
-        'https://v2.convertapi.com/upload',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+      try {
+        const response = await axios.post(
+          'https://v2.convertapi.com/upload',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
           },
-        },
-      );
-      setUploading(false);
+        );
+        setUploading(false);
 
-      console.log(
-        `Upload Finished Access the file at https://v2.convertapi.com/d/${response.data.FileId}`,
-      );
-      setFilesToUpload((curr: [any]) => {
-        curr[index].url = `https://v2.convertapi.com/d/${response.data.FileId}`;
-        curr[index].progress = 100;
-        return curr;
-      });
-      setUploadedFiles([...uploadedFiles, element]);
-    });
+        console.log(
+          `Upload Finished Access the file at https://v2.convertapi.com/d/${response.data.FileId}`,
+        );
+        setFilesToUpload((curr: [any]) => {
+          curr[
+            index
+          ].url = `https://v2.convertapi.com/d/${response.data.FileId}`;
+          curr[index].progress = 100;
+          return curr;
+        });
+        setUploadedFiles([...uploadedFiles, element]);
+      } catch (e) {
+        console.log(e);
+        continue;
+      }
+    }
   };
 
   function readFiles() {
@@ -90,10 +99,9 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     setFilesToUpload(newFiles);
     // remove file from filesToUploadProgress
   }
-
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
-      <Card key={`${index}-${uploading}`}>
+      <Card key={`${index}-${uploading}`} containerStyle={{marginBottom: 20}}>
         <View style={styles.listItem}>
           <Text style={{flex: 1}}>{item.name}</Text>
           <Text>{formatBytes(item.size)}</Text>
@@ -115,12 +123,8 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
       </Card>
     );
   };
-
-  useEffect(() => {
-    console.log(filesToUpload.progress, 'Progress');
-  });
   return (
-    <SafeAreaView>
+    <>
       <View
         style={{
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
@@ -139,15 +143,16 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
             }}
           />
         </View>
-        <View>
-          <FlatList
-            data={filesToUpload}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
       </View>
-    </SafeAreaView>
+      <FlatList
+        data={filesToUpload}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        onContentSizeChange={(w, h) => setFlatListHeight(h)}
+        onLayout={e => setFlatListHeight(e.nativeEvent.layout.height)}
+        style={{height: flatListHeight, ...styles.list}}
+      />
+    </>
   );
 }
 
@@ -158,19 +163,21 @@ function UploadedScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   };
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
-      <Card>
-        <View key={index} style={styles.listItem}>
-          <Text style={{flex: 1}}>{item.name}</Text>
-          <Text>{formatBytes(item.size)}</Text>
-          <TouchableOpacity
-            style={styles.deleteButton}
-            onPress={() => {
-              // removeFile(index);
-            }}>
-            <FontAwesomeIcon name="remove" size={15} color={'white'} />
-          </TouchableOpacity>
-        </View>
-      </Card>
+      <>
+        <Card key={`${index}`} containerStyle={{marginBottom: 20}}>
+          <View style={styles.listItem}>
+            <Text style={{flex: 1}}>{item.name}</Text>
+            <Text>{formatBytes(item.size)}</Text>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => {
+                // removeFile(index);
+              }}>
+              <FontAwesomeIcon name="remove" size={15} color={'white'} />
+            </TouchableOpacity>
+          </View>
+        </Card>
+      </>
     );
   };
 
@@ -239,8 +246,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 32,
-    paddingHorizontal: 24,
+    padding: 24,
   },
   sectionTitle: {
     fontSize: 24,
@@ -255,17 +261,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   list: {
-    backgroundColor: '#6495ed',
+    // backgroundColor: '#6495ed',
     // paddingVertical: 20,
-    marginTop: 20,
-    // paddingBottom: 1000,
   },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 10,
     paddingHorizontal: 10,
+    marginBottom: 10,
   },
   deleteButton: {
     backgroundColor: 'red',
