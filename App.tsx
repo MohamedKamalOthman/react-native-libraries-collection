@@ -21,21 +21,104 @@ import {
   RootedScreen,
   FileUploader,
 } from './src/screens';
+import CustomDrawer from './src/components/CustomDrawer';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Colors from './src/assets/colors/Colors';
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
   const {t} = useTranslation();
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName={t('Home')}>
-        <Drawer.Screen name={t('Home')} component={Home} />
-        <Drawer.Screen name={t('Language')} component={Language} />
-        <Drawer.Screen name={t('Form')} component={Form} />
-        <Drawer.Screen name={t('Tabs')} component={Tabs} />
-        <Drawer.Screen name={t('DatePicker')} component={DatePicker} />
-        <Drawer.Screen name={t('Contacts')} component={ContactsScreen} />
-        <Drawer.Screen name={t('RootChecker')} component={RootedScreen} />
-        <Drawer.Screen name={t('File Uploader')} component={FileUploader} />
+      <Drawer.Navigator
+        drawerContent={props => <CustomDrawer {...props} />}
+        screenOptions={{
+          // headerShown: false,
+          drawerActiveBackgroundColor: Colors.primaryBackground1,
+          drawerActiveTintColor: Colors.white,
+          drawerInactiveTintColor: '#333',
+          drawerLabelStyle: {
+            marginLeft: -25,
+            fontFamily: 'Roboto-Medium',
+            fontSize: 15,
+          },
+        }}>
+        <Drawer.Screen
+          name={t('Home')}
+          component={Home}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('Language')}
+          component={Language}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="language" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('Form')}
+          component={Form}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="edit" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('Tabs')}
+          component={Tabs}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="th-list" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('DatePicker')}
+          component={DatePicker}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="calendar" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('Contacts')}
+          component={ContactsScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="address-book" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('RootChecker')}
+          component={RootedScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5
+                name="exclamation-triangle"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('File Uploader')}
+          component={FileUploader}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="cloud-upload-alt" size={size} color={color} />
+            ),
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

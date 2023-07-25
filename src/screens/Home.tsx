@@ -11,9 +11,6 @@ const Home = ({navigation}: any) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: t('Home'),
-      drawerIcon: ({focused, size}: any) => (
-        <Icon name="home" size={30} color="#000" />
-      ),
     });
   });
   return (
