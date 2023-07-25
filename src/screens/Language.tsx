@@ -12,20 +12,12 @@ import {useLayoutEffect} from 'react';
 const Language = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: t('Language'),
-    });
-  });
-
   return (
     <>
       <View style={styles.wrapper}>
         <View style={styles.sectionWrapper}>
           <Text style={styles.heading}>{t('text0')}</Text>
-          <Text style={styles.regularText}>
-            {t('text1')}
-          </Text>
+          <Text style={styles.regularText}>{t('text1')}</Text>
         </View>
 
         <View style={styles.sectionWrapper}>

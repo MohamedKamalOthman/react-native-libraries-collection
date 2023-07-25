@@ -49,6 +49,7 @@ const CustomDrawer = props => {
             <FontAwesome5 name="coins" size={14} color={Colors.white} />
           </View>
         </ImageBackground>
+
         <View style={{flex: 1, backgroundColor: Colors.white, paddingTop: 10}}>
           <DrawerItemList {...props} />
         </View>

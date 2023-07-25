@@ -1,6 +1,6 @@
 import DocumentPicker from 'react-native-document-picker';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   TouchableOpacity,
   View,
@@ -9,11 +9,12 @@ import {
   useColorScheme,
   Text,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Colors from '../assets/colors/Colors';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {formatBytes} from '../utils/utils';
+import {formatBytes, getFileIcon} from '../utils/utils';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Card} from '@rneui/themed';
 import * as Progress from 'react-native-progress';
@@ -24,7 +25,9 @@ const Tab = createBottomTabNavigator();
 function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode
+      ? Colors.primaryDark
+      : Colors.secondaryBackground,
   };
   const [filesToUpload, setFilesToUpload]: [any, any] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -57,6 +60,14 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
           {
             headers: {
               'Content-Type': 'multipart/form-data',
+            },
+            onUploadProgress: progressEvent => {
+              const progress_ = progressEvent.loaded / progressEvent.total;
+              console.log(`Uploading file progress ${progress_}`);
+              setFilesToUpload((curr: [any]) => {
+                curr[index].progress = progress_;
+                return curr;
+              });
             },
           },
         );
@@ -100,23 +111,25 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     // remove file from filesToUploadProgress
   }
   const renderItem = ({item, index}: {item: any; index: number}) => {
+    const extension = item.name.split('.').pop();
+    const icon = getFileIcon(extension);
     return (
       <Card key={`${index}-${uploading}`} containerStyle={{marginBottom: 20}}>
         <View style={styles.listItem}>
-          <Text style={{flex: 1}}>{item.name}</Text>
+          <FontAwesomeIcon name={icon} size={25} color={Colors.black} />
+          <Text style={{flex: 1, padding: 10}}>{item.name}</Text>
           <Text>{formatBytes(item.size)}</Text>
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => {
               removeFile(index);
             }}>
-            <FontAwesomeIcon name="remove" size={15} color={'white'} />
+            <FontAwesomeIcon name="remove" size={15} color={Colors.white} />
           </TouchableOpacity>
         </View>
-
         <Progress.Bar
           progress={filesToUpload[index].progress}
-          indeterminate={filesToUpload[index].progress === 0}
+          // indeterminate={filesToUpload[index].progress === 0}
           width={null}
           height={6}
         />
@@ -130,18 +143,34 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
         }}>
         <View style={styles.sectionContainer}>
-          <Button
-            title="Select Files"
-            onPress={() => {
-              readFiles();
-            }}
-          />
-          <Button
-            title="Upload Files"
-            onPress={() => {
-              uploadFiles();
-            }}
-          />
+          <TouchableOpacity
+            onPress={readFiles}
+            style={{
+              backgroundColor: Colors.primaryBackground2,
+              padding: 10,
+              borderRadius: 5,
+              marginBottom: 10,
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{fontSize: 16, fontWeight: 'bold', color: Colors.white}}>
+              Select Files
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={uploadFiles}
+            style={{
+              backgroundColor: Colors.primaryBackground2,
+              padding: 10,
+              borderRadius: 5,
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{fontSize: 16, fontWeight: 'bold', color: Colors.white}}>
+              Upload Files
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <FlatList
@@ -159,32 +188,38 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
 function UploadedScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode
+      ? Colors.primaryDark
+      : Colors.secondaryBackground,
   };
   const renderItem = ({item, index}: {item: any; index: number}) => {
+    const extension = item.name.split('.').pop();
+    const icon = getFileIcon(extension);
     return (
-      <>
-        <Card key={`${index}`} containerStyle={{marginBottom: 20}}>
-          <View style={styles.listItem}>
-            <Text style={{flex: 1}}>{item.name}</Text>
-            <Text>{formatBytes(item.size)}</Text>
-            <TouchableOpacity
-              style={{...styles.deleteButton, backgroundColor: 'blue'}}
-              onPress={() => {
-                const path = item.uri;
-                FileViewer.open(path, {showOpenWithDialog: true})
-                  .then(() => {
-                    console.log('success');
-                  })
-                  .catch(error => {
-                    console.log(error);
-                  });
-              }}>
-              <FontAwesomeIcon name="file" size={15} color={'white'} />
-            </TouchableOpacity>
-          </View>
-        </Card>
-      </>
+      <Card key={`${index}`} containerStyle={{marginBottom: 20}}>
+        <View style={styles.listItem}>
+          <FontAwesomeIcon name={icon} size={25} color={Colors.black} />
+          <Text style={{flex: 1, padding: 10}}>{item.name}</Text>
+          <Text>{formatBytes(item.size)}</Text>
+          <TouchableOpacity
+            style={{
+              ...styles.deleteButton,
+              backgroundColor: Colors.primaryBackground2,
+            }}
+            onPress={() => {
+              const path = item.uri;
+              FileViewer.open(path, {showOpenWithDialog: true})
+                .then(() => {
+                  console.log('success');
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            }}>
+            <FontAwesomeIcon name="file" size={15} color={'white'} />
+          </TouchableOpacity>
+        </View>
+      </Card>
     );
   };
 
@@ -209,7 +244,9 @@ function UploadedScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
 function FileUploader(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode
+      ? Colors.primaryDark
+      : Colors.secondaryBackground,
   };
   const [uploadedFiles, setUploadedFiles]: [any, any] = useState([]);
 

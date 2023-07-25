@@ -36,7 +36,7 @@ function App(): JSX.Element {
           // headerShown: false,
           drawerActiveBackgroundColor: Colors.primaryBackground1,
           drawerActiveTintColor: Colors.white,
-          drawerInactiveTintColor: '#333',
+          drawerInactiveTintColor: Colors.black,
           drawerLabelStyle: {
             marginLeft: -25,
             fontFamily: 'Roboto-Medium',
@@ -47,6 +47,7 @@ function App(): JSX.Element {
           name={t('Home')}
           component={Home}
           options={{
+            title: t('Home'),
             drawerIcon: ({focused, color, size}) => (
               <FontAwesome5 name="home" size={size} color={color} />
             ),
@@ -56,6 +57,7 @@ function App(): JSX.Element {
           name={t('Language')}
           component={Language}
           options={{
+            title: t('Language'),
             drawerIcon: ({focused, color, size}) => (
               <FontAwesome5 name="language" size={size} color={color} />
             ),
