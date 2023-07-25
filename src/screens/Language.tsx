@@ -6,14 +6,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {
-  MyCustomTextComponent,
-  MyDirectionChangerButton,
-} from '../components/language_direction';
 import {useTranslation} from 'react-i18next';
 import RNRestart from 'react-native-restart';
 import {useLayoutEffect} from 'react';
-const Language = ({navigation}) => {
+const Language = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
 
   useLayoutEffect(() => {
@@ -26,15 +22,15 @@ const Language = ({navigation}) => {
     <>
       <View style={styles.wrapper}>
         <View style={styles.sectionWrapper}>
-          <Text style={styles.heading}>{t('Hello world')}</Text>
+          <Text style={styles.heading}>{t('text0')}</Text>
           <Text style={styles.regularText}>
-            {t('Some text goes here, some more text goes here')}
+            {t('text1')}
           </Text>
         </View>
 
         <View style={styles.sectionWrapper}>
           <Button
-            title={t('Change language')}
+            title={t('lang1')}
             onPress={() => {
               i18n
                 .changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')

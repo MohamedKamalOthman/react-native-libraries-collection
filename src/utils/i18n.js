@@ -4,18 +4,14 @@ import {I18nManager} from 'react-native';
 
 // the translations
 // (tip move them in a JSON file and import them)
+
+// load the correct translation file
 const resources = {
+  en: {
+    translation: require('../assets/locales/en.json'),
+  },
   ar: {
-    translation: {
-      'Hello world': 'مرحبا بالعالم',
-      'Some text goes here, some more text goes here':
-        'بعض النص هنا ، المزيد من النص هنا',
-      Testing: 'اختبارات',
-      'Change language': 'تغيير اللغة',
-      'Go to Inner screen ->': 'انتقل إلى الشاشة الداخلية ->',
-      Home: 'الصفحة الرئيسية',
-      Language: 'لغة',
-    },
+    translation: require('../assets/locales/ar.json'),
   },
 };
 
