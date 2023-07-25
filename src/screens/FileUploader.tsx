@@ -71,10 +71,9 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
           curr[index].progress = 100;
           return curr;
         });
-        setUploadedFiles([...uploadedFiles, element]);
+        setUploadedFiles((curr: [any]) => [...curr, element]);
       } catch (e) {
         console.log(e);
-        continue;
       }
     }
   };
