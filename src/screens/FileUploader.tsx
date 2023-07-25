@@ -17,6 +17,7 @@ import {formatBytes} from '../utils/utils';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Card} from '@rneui/themed';
 import * as Progress from 'react-native-progress';
+import FileViewer from 'react-native-file-viewer';
 
 const Tab = createBottomTabNavigator();
 
@@ -168,11 +169,18 @@ function UploadedScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
             <Text style={{flex: 1}}>{item.name}</Text>
             <Text>{formatBytes(item.size)}</Text>
             <TouchableOpacity
-              style={styles.deleteButton}
+              style={{...styles.deleteButton, backgroundColor: 'blue'}}
               onPress={() => {
-                // removeFile(index);
+                const path = item.uri;
+                FileViewer.open(path, {showOpenWithDialog: true})
+                  .then(() => {
+                    console.log('success');
+                  })
+                  .catch(error => {
+                    console.log(error);
+                  });
               }}>
-              <FontAwesomeIcon name="remove" size={15} color={'white'} />
+              <FontAwesomeIcon name="file" size={15} color={'white'} />
             </TouchableOpacity>
           </View>
         </Card>
