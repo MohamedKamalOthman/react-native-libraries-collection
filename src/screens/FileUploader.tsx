@@ -34,8 +34,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
     // for each file in filesToUpload
     // get file content
 
-    for (let index = 0; index < filesToUpload.length; index++) {
-      const element = filesToUpload[index];
+    filesToUpload.forEach(async (element: any, index: number) => {
       // upload file to server https://v2.convertapi.com/upload  with axios
       setFilesToUpload((curr: [any]) => {
         curr[index].progress = 0;
@@ -70,7 +69,7 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
         return curr;
       });
       setUploadedFiles([...uploadedFiles, element]);
-    }
+    });
   };
 
   function readFiles() {
@@ -121,8 +120,8 @@ function UploadScreen({navigation, uploadedFiles, setUploadedFiles}: any) {
         </View>
 
         <Progress.Bar
-          progress={item.progress}
-          indeterminate={uploading && item.progress === 0}
+          progress={filesToUpload[index].progress}
+          indeterminate={filesToUpload[index].progress === 0}
           width={null}
           height={6}
         />
