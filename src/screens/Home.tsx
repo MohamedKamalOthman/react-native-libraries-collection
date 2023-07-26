@@ -7,7 +7,7 @@ const Home = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
 
   return (
-    <View>
+    <View style={{alignContent: 'center', alignSelf: 'center'}}>
       <Text>Home Screen</Text>
     </View>
   );

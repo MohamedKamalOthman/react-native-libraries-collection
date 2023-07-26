@@ -20,6 +20,7 @@ import {
   ContactsScreen,
   RootedScreen,
   FileUploader,
+  Charts,
 } from './src/screens';
 import CustomDrawer from './src/components/CustomDrawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -118,6 +119,15 @@ function App(): JSX.Element {
           options={{
             drawerIcon: ({focused, color, size}) => (
               <FontAwesome5 name="cloud-upload-alt" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name={t('Charts')}
+          component={Charts}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="chart-bar" size={size} color={color} />
             ),
           }}
         />
