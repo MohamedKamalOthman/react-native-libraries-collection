@@ -7,9 +7,10 @@ import ContactsScreen from './Contacts';
 import RootedScreen from './RootChecker';
 import FileUploader from './FileUploader';
 import Charts from './Charts';
-
+import TooltipScreen from './Tooltip';
 export {
   Form,
+  TooltipScreen,
   Home,
   FileUploader,
   Language,
@@ -17,5 +18,5 @@ export {
   DatePicker,
   ContactsScreen,
   RootedScreen,
-  Charts
+  Charts,
 };
