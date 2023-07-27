@@ -9,6 +9,7 @@ import FileUploader from './FileUploader';
 import Charts from './Charts';
 import TooltipScreen from './Tooltip';
 import ModalScreen from './Modals';
+import NotificationScreen from './PushNotifications';
 export {
   Form,
   ModalScreen,
@@ -21,4 +22,5 @@ export {
   ContactsScreen,
   RootedScreen,
   Charts,
+  NotificationScreen,
 };

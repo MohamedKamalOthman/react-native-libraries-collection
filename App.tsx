@@ -23,10 +23,13 @@ import {
   Charts,
   TooltipScreen,
   ModalScreen,
+  NotificationScreen,
 } from './src/screens';
 import CustomDrawer from './src/components/CustomDrawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from './src/assets/colors/Colors';
+import * as Notifications from 'expo-notifications';
+
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
@@ -151,8 +154,20 @@ function App(): JSX.Element {
             ),
           }}
         />
+        <Drawer.Screen
+          name="Notifications"
+          component={NotificationScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="bell" size={size} color={color} />
+            ),
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
 export default App;
+function useEffect(arg0: () => void, arg1: never[]) {
+  throw new Error('Function not implemented.');
+}
