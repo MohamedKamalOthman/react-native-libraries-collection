@@ -8,8 +8,10 @@ import RootedScreen from './RootChecker';
 import FileUploader from './FileUploader';
 import Charts from './Charts';
 import TooltipScreen from './Tooltip';
+import ModalScreen from './Modals';
 export {
   Form,
+  ModalScreen,
   TooltipScreen,
   Home,
   FileUploader,

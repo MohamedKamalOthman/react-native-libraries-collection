@@ -22,6 +22,7 @@ import {
   FileUploader,
   Charts,
   TooltipScreen,
+  ModalScreen,
 } from './src/screens';
 import CustomDrawer from './src/components/CustomDrawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -138,6 +139,15 @@ function App(): JSX.Element {
           options={{
             drawerIcon: ({focused, color, size}) => (
               <FontAwesome5 name="info-circle" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Modal"
+          component={ModalScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="window-restore" size={size} color={color} />
             ),
           }}
         />
