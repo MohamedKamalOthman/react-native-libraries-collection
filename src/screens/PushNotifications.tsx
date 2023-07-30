@@ -10,6 +10,8 @@ import {
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification, {Importance} from 'react-native-push-notification';
 
+const channelId = '123';
+
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
@@ -62,7 +64,7 @@ PushNotification.configure({
 });
 PushNotification.createChannel(
   {
-    channelId: '123', // (required)
+    channelId: channelId, // (required)
     channelName: 'My channel', // (required)
     channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
     playSound: false, // (optional) default: true
@@ -75,7 +77,7 @@ PushNotification.createChannel(
 const testPushNotification = () => {
   PushNotification.localNotification({
     /* Android Only Properties */
-    channelId: '123', // (required) channelId, if the channel doesn't exist, notification will not trigger.
+    channelId: channelId, // (required) channelId, if the channel doesn't exist, notification will not trigger.
     ticker: 'My Notification Ticker', // (optional)
     showWhen: true, // (optional) default: true
     autoCancel: true, // (optional) default: true
@@ -98,7 +100,7 @@ const testPushNotification = () => {
     group: 'group', // (optional) add group to message
     groupSummary: false, // (optional) set this notification to be the group summary for a group of notifications, default: false
     ongoing: false, // (optional) set whether this is an "ongoing" notification
-    priority: 'high', // (optional) set notification priority, default: high
+    priority: 'medium', // (optional) set notification priority, default: high
     visibility: 'private', // (optional) set notification visibility, default: private
     ignoreInForeground: false, // (optional) if true, the notification will not be visible when the app is in the foreground (useful for parity with how iOS notifications appear). should be used in combine with `com.dieam.reactnativepushnotification.notification_foreground` setting
     shortcutId: 'shortcut-id', // (optional) If this notification is duplicative of a Launcher shortcut, sets the id of the shortcut, in case the Launcher wants to hide the shortcut, default undefined
@@ -127,7 +129,6 @@ const testPushNotification = () => {
     playSound: false, // (optional) default: true
     soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
     number: 10, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
-    repeatType: 'day', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
   });
 };
 
