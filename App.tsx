@@ -28,7 +28,6 @@ import {
 import CustomDrawer from './src/components/CustomDrawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from './src/assets/colors/Colors';
-import * as Notifications from 'expo-notifications';
 
 const Drawer = createDrawerNavigator();
 
@@ -168,6 +167,3 @@ function App(): JSX.Element {
   );
 }
 export default App;
-function useEffect(arg0: () => void, arg1: never[]) {
-  throw new Error('Function not implemented.');
-}

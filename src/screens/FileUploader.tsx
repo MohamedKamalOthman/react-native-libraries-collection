@@ -246,7 +246,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 function Downloader() {
   const fileUrl =
-    'https://v2.convertapi.com/d/6dhgrfx4mftne9jayjjkjp8pxcla9lmx';
+    'https://v2.convertapi.com/d/xo7cyr2c3b8zyq6tpphq9l5zqcwal3lz';
   const downloadFile = () => {
     // Get today's date to add the time suffix in filename
     let date = new Date();
