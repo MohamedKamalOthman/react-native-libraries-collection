@@ -34,4 +34,5 @@ const getFileIcon = (extension: any) => {
   }
 };
 
-export {formatBytes, getFileIcon};
+const dataSaver = (key: String, value: any) => {};
+export {formatBytes, getFileIcon, dataSaver};
