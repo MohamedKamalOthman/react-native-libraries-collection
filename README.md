@@ -5,6 +5,15 @@
 - [React Native - Guide](#react-native---guide)
 - [Table of Contents](#table-of-contents)
 - [Side Menu](#side-menu)
+- [Charts](#charts)
+- [Rooted Device](#rooted-device)
+- [Contacts](#contacts)
+- [Forms and Validation](#forms-and-validation)
+- [Hijri-Gregorian Date Picker](#hijri-gregorian-date-picker)
+- [Multi File Uploader-Downloader-Viewer](#multi-file-uploader-downloader-viewer)
+- [Notifications](#notifications)
+- [Popups](#popups)
+- [Tooltips](#tooltips)
 
 # Side Menu
 
@@ -54,4 +63,3 @@ https://github.com/MohamedKamalOthman/react-native-libraries-collection/assets/7
 # Tooltips
 
 ![{6fdb24d1-7ecb-4ace-b61f-d7d8d50b1faf}](https://github.com/MohamedKamalOthman/react-native-libraries-collection/assets/76039756/f33c207f-d32c-4f4b-9555-d6b8133a8715)
-
