@@ -1,5 +1,7 @@
 # React Native - Guide
 
+This is a guide for React Native developers to help them find the best libraries for their projects. It is a collection of libraries that I have used in my projects and found them useful. I will keep updating this guide with new libraries and new features. I hope you find it useful.
+
 # Table of Contents
 
 - [React Native - Guide](#react-native---guide)
