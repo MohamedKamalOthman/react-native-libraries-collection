@@ -75,6 +75,8 @@ android {
 
     namespace "com.reactplayground"
     defaultConfig {
+        missingDimensionStrategy 'react-native-camera', 'general'
+        missingDimensionStrategy 'react-native-camera', 'mlkit'
         applicationId "com.reactplayground"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

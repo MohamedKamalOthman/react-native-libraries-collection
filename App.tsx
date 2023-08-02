@@ -9,7 +9,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
-
+import Videorr from './src/screens/Videor';
 import './src/utils/i18n';
 import {useTranslation} from 'react-i18next';
 import {
@@ -174,7 +174,15 @@ function App(): JSX.Element {
             ),
           }}
         />
-        
+         <Drawer.Screen
+          name="Videorr"
+          component={Videorr}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="bell" size={size} color={color} />
+            ),
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
