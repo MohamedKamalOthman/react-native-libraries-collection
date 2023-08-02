@@ -35,7 +35,7 @@ const CustomDrawer = props => {
               fontFamily: 'Roboto-Medium',
               marginBottom: 5,
             }}>
-            John Doe
+          Mohamed
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Text
@@ -44,7 +44,7 @@ const CustomDrawer = props => {
                 fontFamily: 'Roboto-Regular',
                 marginRight: 5,
               }}>
-              280 Coins
+             available balance 16000$
             </Text>
             <FontAwesome5 name="coins" size={14} color={Colors.white} />
           </View>

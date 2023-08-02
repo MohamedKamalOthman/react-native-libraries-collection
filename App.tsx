@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -28,6 +29,8 @@ import {
 import CustomDrawer from './src/components/CustomDrawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from './src/assets/colors/Colors';
+import Otp from './src/screens/Otp';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -162,6 +165,16 @@ function App(): JSX.Element {
             ),
           }}
         />
+        <Drawer.Screen
+          name="otp"
+          component={Otp}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="bell" size={size} color={color} />
+            ),
+          }}
+        />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );
