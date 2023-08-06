@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- Notifications -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -19,8 +21,11 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data android:name="com.google.android.geo.API_KEY"
+    android:value="AIzaSyApdwkfzldAcpg-DoSzLlKuFdpVDP_vNaU" />
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"
                     android:value="false"/>
+
         <!-- Change the resource name to your App's accent color - or any other color you want -->
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
                     android:resource="@color/white"/> <!-- or @android:color/{name} to use a standard color -->

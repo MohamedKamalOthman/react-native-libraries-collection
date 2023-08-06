@@ -11,6 +11,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import Videorr from './src/screens/Videor';
 import './src/utils/i18n';
+import Sessiontimeout from './src/screens/SessionTimeout';
 import {useTranslation} from 'react-i18next';
 import {
   Home,
@@ -30,7 +31,7 @@ import CustomDrawer from './src/components/CustomDrawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from './src/assets/colors/Colors';
 import Otp from './src/screens/Otp';
-
+import Mappp from './src/screens/Map';
 
 const Drawer = createDrawerNavigator();
 
@@ -52,7 +53,7 @@ function App(): JSX.Element {
           },
         }}>
         <Drawer.Screen
-          name={t('Home')}
+          name={t('Homee')}
           component={Home}
           options={{
             title: t('Home'),
@@ -177,6 +178,24 @@ function App(): JSX.Element {
          <Drawer.Screen
           name="Videorr"
           component={Videorr}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="bell" size={size} color={color} />
+            ),
+          }}
+        />
+           <Drawer.Screen
+          name="Mappp"
+          component={Mappp}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="bell" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Sessiontimeout"
+          component={Sessiontimeout}
           options={{
             drawerIcon: ({focused, color, size}) => (
               <FontAwesome5 name="bell" size={size} color={color} />
