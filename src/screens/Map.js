@@ -11,16 +11,16 @@ let locationsOfInterest = [
   {
     title: 'First',
     location: {
-      latitude: -27.2,
-      longitude: 145,
+      latitude: 30.033333,
+      longitude: 31.233334,
     },
     description: 'My First Marker',
   },
   {
     title: 'Second',
     location: {
-      latitude: -30.2,
-      longitude: 150,
+      latitude: 31.205753,
+      longitude: 29.924526,
     },
     description: 'My Second Marker',
   },
@@ -249,8 +249,8 @@ async function requestGeolocationPermission() {
 export default function Mappp() {
   const [count, setCount] = useState(0);
   const [draggableMarkerCoord, setDraggableMarkerCoord] = useState({
-    longitude: 148.11,
-    latitude: -26.85,
+    longitude: 31.333332,
+    latitude: 29.8499966,
   });
   const mapRef = useRef();
 
@@ -293,9 +293,9 @@ export default function Mappp() {
         style={styles.map}
         onRegionChange={onRegionChange}
         initialRegion={{
-          latitude: -26.852691607783505,
+          latitude: 30.033333,
           latitudeDelta: 27.499085419977938,
-          longitude: 148.1104129487327,
+          longitude: 31.233334,
           longitudeDelta: 15.952148000000022,
         }}
         //  customMapStyle={mapJson}
@@ -308,8 +308,15 @@ export default function Mappp() {
           coordinate={draggableMarkerCoord}
           onDragEnd={(e) => setDraggableMarkerCoord(e.nativeEvent.coordinate)}
         />
+         <Marker
+          pinColor='#00ff00'
+          coordinate={{ latitude: 30.45499818, longitude: 32.3499986}}
+        ></Marker>
+        
       </MapView>
+      
     </View>
+
   );
 }
 
