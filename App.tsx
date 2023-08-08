@@ -32,6 +32,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from './src/assets/colors/Colors';
 import Otp from './src/screens/Otp';
 import Mappp from './src/screens/Map';
+import LoginScreen from './src/screens/login';
+import RegisterScreen from './src/screens/signup'
 
 const Drawer = createDrawerNavigator();
 
@@ -171,7 +173,7 @@ function App(): JSX.Element {
           component={Otp}
           options={{
             drawerIcon: ({focused, color, size}) => (
-              <FontAwesome5 name="bell" size={size} color={color} />
+              <FontAwesome5 name="phone" size={size} color={color} />
             ),
           }}
         />
@@ -180,7 +182,7 @@ function App(): JSX.Element {
           component={Videorr}
           options={{
             drawerIcon: ({focused, color, size}) => (
-              <FontAwesome5 name="bell" size={size} color={color} />
+              <FontAwesome5 name="video" size={size} color={color} />
             ),
           }}
         />
@@ -189,16 +191,36 @@ function App(): JSX.Element {
           component={Mappp}
           options={{
             drawerIcon: ({focused, color, size}) => (
-              <FontAwesome5 name="bell" size={size} color={color} />
+              <FontAwesome5 name="map" size={size} color={color} />
             ),
           }}
         />
+        
         <Drawer.Screen
           name="Sessiontimeout"
           component={Sessiontimeout}
           options={{
             drawerIcon: ({focused, color, size}) => (
-              <FontAwesome5 name="bell" size={size} color={color} />
+              <FontAwesome5 name="clock" size={size} color={color} />
+            ),
+          }}
+        />
+        
+        <Drawer.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="arrow-alt-circle-right" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="arrow-circle-right" size={size} color={color} />
             ),
           }}
         />

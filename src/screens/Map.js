@@ -299,7 +299,16 @@ export default function Mappp() {
           longitudeDelta: 15.952148000000022,
         }}
         //  customMapStyle={mapJson}
-      ></MapView>
+      >
+
+{showLocationsOfInterest()}
+<Marker 
+          draggable
+          pinColor='#0000ff'
+          coordinate={draggableMarkerCoord}
+          onDragEnd={(e) => setDraggableMarkerCoord(e.nativeEvent.coordinate)}
+        />
+      </MapView>
     </View>
   );
 }

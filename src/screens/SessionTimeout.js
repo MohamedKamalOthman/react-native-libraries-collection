@@ -47,6 +47,7 @@ export default class Sessiontimeout extends PureComponent {
     const {active} = this.state;
     return (
       <UserInactivity
+      style={{ backgroundColor: 'white'}}
         timeForInactivity={2000}
         checkInterval={1000}
         onAction={this.onAction}>
