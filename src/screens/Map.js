@@ -1,7 +1,9 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {useRef, useState} from 'react';
 import {StyleSheet, Text, View, PermissionsAndroid} from 'react-native';
 import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as FileSystem from 'expo-file-system';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 //import { shareAsync } from 'expo-sharing';
 
 // npx expo install react-native-maps
@@ -254,7 +256,7 @@ export default function Mappp() {
   });
   const mapRef = useRef();
 
- console.log( PermissionsAndroid.RESULTS.GRANTED);
+  console.log(PermissionsAndroid.RESULTS.GRANTED);
   const onRegionChange = region => {
     console.log(region);
   };
@@ -287,6 +289,7 @@ export default function Mappp() {
 
   return (
     <View style={styles.container}>
+
       <MapView
         provider={PROVIDER_GOOGLE}
         ref={mapRef}
@@ -300,23 +303,20 @@ export default function Mappp() {
         }}
         //  customMapStyle={mapJson}
       >
-
-{showLocationsOfInterest()}
-<Marker 
+        {showLocationsOfInterest()}
+        <Marker
           draggable
-          pinColor='#0000ff'
+          pinColor="#0000ff"
           coordinate={draggableMarkerCoord}
-          onDragEnd={(e) => setDraggableMarkerCoord(e.nativeEvent.coordinate)}
+          onDragEnd={e => setDraggableMarkerCoord(e.nativeEvent.coordinate)}
         />
-         <Marker
-          pinColor='#00ff00'
-          coordinate={{ latitude: 30.45499818, longitude: 32.3499986}}
-        ></Marker>
-        
-      </MapView>
-      
-    </View>
+        <Marker
+          pinColor="#00ff00"
+          coordinate={{latitude: 30.45499818, longitude: 32.3499986}}
+        />
 
+      </MapView>
+    </View>
   );
 }
 

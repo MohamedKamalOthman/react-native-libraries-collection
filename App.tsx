@@ -33,11 +33,13 @@ import Colors from './src/assets/colors/Colors';
 import Otp from './src/screens/Otp';
 import Mappp from './src/screens/Map';
 import LoginScreen from './src/screens/login';
-import RegisterScreen from './src/screens/signup'
+import RegisterScreen from './src/screens/signup';
+import GooglePlacesInput from './src/screens/Mapsearch';
 
 const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
+  // first commit
   const {t} = useTranslation();
   return (
     <NavigationContainer>
@@ -218,6 +220,15 @@ function App(): JSX.Element {
         <Drawer.Screen
           name="RegisterScreen"
           component={RegisterScreen}
+          options={{
+            drawerIcon: ({focused, color, size}) => (
+              <FontAwesome5 name="arrow-circle-right" size={size} color={color} />
+            ),
+          }}
+        />
+         <Drawer.Screen
+          name="mapserch"
+          component={GooglePlacesInput}
           options={{
             drawerIcon: ({focused, color, size}) => (
               <FontAwesome5 name="arrow-circle-right" size={size} color={color} />
